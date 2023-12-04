@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Qt_APP.h"
 
+
 class Qt_APP : public QMainWindow{
     Q_OBJECT
 

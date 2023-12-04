@@ -12,7 +12,6 @@ int main(int argc, char *argv[]){
     QApplication a(argc, argv);
     Question q;
     q.loadQuestions();
-    q.printQuestions();
     
     Qt_APP w;
     w.show();

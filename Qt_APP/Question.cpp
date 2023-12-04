@@ -1,47 +1,49 @@
 #include "Question.h"
 #include <iostream>
 #include <fstream>
-#include <sstream>
-#include <string>
 
 using namespace std;
 
 Question::Question() {};
 
 void Question::loadQuestions() {
-	string line;
-	ifstream myfile("questions.txt");
-	istringstream iss(line);
-	if (myfile.is_open()){
+    QString line = "";
+    QFile file("questions.txt");
 
-		for (int i = 0; i < 10; i++) {
-			getline(myfile, line);
-			Questions[i] = line;
-			string ans[5];
-			getline(myfile, line);
-			istringstream iss(line);
-			for (int j = 0; j < 5; j++) {
-				getline(iss, ans[j], ',');
-				if (j == 4) {
-					Answers_index[i] = stoi(ans[j]);
-					break;
-				}
-				Answers[i][j] = ans[j];
-			}
-	}
-		myfile.close();
-	}
-	else cout << "Unable to open file";
-	
-};
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+
+        for (int i = 0; i < 10; i++) {
+            line = in.readLine();
+            Questions[i] = line;
+
+            QString ans[5];
+            line = in.readLine();
+            QStringList ansList = line.split(',');
+
+            for (int j = 0; j < 5; j++) {
+                ans[j] = ansList[j];
+                if (j == 4) {
+                    Answers_index[i] = ans[j].toInt();
+                    break;
+                }
+                Answers[i][j] = ans[j];
+            }
+        }
+
+        file.close();
+    }
+    else {
+        qDebug() << "Unable to open file";
+    }
+}
 
 void Question::printQuestions() {
-	for (int i = 0; i < 10; i++) {
-		cout << Questions[i] << endl;
-		for (int j = 0; j < 4; j++) {
-			cout << Answers[i][j] << " ";
-		}
-		cout << endl;
-		cout << Answers_index[i] << endl;
-	}
-};
+    for (int i = 0; i < 10; i++) {
+        qDebug() << Questions[i];
+        for (int j = 0; j < 4; j++) {
+            qDebug() << Answers[i][j] << " ";
+        }
+        qDebug() << Answers_index[i];
+    }
+}

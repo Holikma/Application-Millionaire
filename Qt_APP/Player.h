@@ -1,13 +1,17 @@
 #pragma once
 
-#include <string>
+#include "Qt_APP.h"
+#include <iostream>
+
 using namespace std;
 
-class Player {
+class Player{
 	private:
-		string name;
+		QString name = "";
 		float score;
-
+		
 	public:
+		Player();
+		void setName();
 
 };

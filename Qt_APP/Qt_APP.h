@@ -6,6 +6,7 @@
 
 class Qt_APP : public QMainWindow{
     Q_OBJECT
+    private slots:
 
     private:
         Ui::Qt_APPClass ui;

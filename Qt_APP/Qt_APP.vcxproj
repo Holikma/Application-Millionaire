@@ -89,6 +89,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Question.cpp" />
+    <ClCompile Include="Player.cpp" />
     <QtRcc Include="Qt_APP.qrc" />
     <QtUic Include="Qt_APP.ui" />
     <QtMoc Include="Qt_APP.h" />
@@ -96,7 +98,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Text.txt" />
+    <Text Include="questions.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Question.h" />

@@ -23,9 +23,13 @@ int Qt_APP::Level_Input() {
 		return 1;
 	}
 	else if (text == "Medium") {
+        ui.Joker3_Button->setEnabled(false);
 		return 2;
 	}
 	else if (text == "Hard") {
+        ui.Joker2_Button->setEnabled(false);
+        ui.Joker3_Button->setEnabled(false);
+ 
 		return 3;
 	}
 	else {
@@ -35,18 +39,19 @@ int Qt_APP::Level_Input() {
 
 void Qt_APP::freeze() {
 	ui.New_Game_Button->setEnabled(false);
-    findChild<QLineEdit*>("Name_Line")->setEnabled(false);
-    findChild<QComboBox*>("Level_Box")->setEnabled(false);
-    findChild<QCheckBox*>("Random_Box")->setEnabled(false);
+    ui.Name_Line->setEnabled(false);
+    ui.Level_Box->setEnabled(false);
+    ui.Random_Box->setEnabled(false);
 }
-
 
 void Qt_APP::Set_Game() {
     Player player1;
     Question question1;
-    freeze();
     player1.setName(Name_Input());
     player1.setDifficulty(Level_Input());
-    question1.loadQuestions();    
+    question1.loadQuestions();
+    freeze();
+
+
 }
 

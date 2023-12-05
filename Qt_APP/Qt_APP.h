@@ -9,18 +9,21 @@
 #include "Player.h"
 #include "Question.h"
 
-
 class Qt_APP : public QMainWindow{
     Q_OBJECT
+
     private slots:
-        QString Name_Input();
-        int Level_Input();
         void freeze();
+        int Level_Input();
+        QString Name_Input();
         void Set_Game();
+        
 
     private:
         Ui::Qt_APPClass ui;
-        
+
+     
+       
     public:
         Qt_APP(QWidget *parent = nullptr);
         ~Qt_APP();

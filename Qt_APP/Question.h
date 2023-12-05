@@ -12,4 +12,7 @@ class Question {
 		Question();
 		void loadQuestions();
 		void printQuestions();
+		QString getQuestion(int index);
+		QString getAnswer(int ind_i, int ind_j);
+		int getAnswer_index(int index);
 };

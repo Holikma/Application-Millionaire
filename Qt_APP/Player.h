@@ -12,6 +12,6 @@ public:
 	Player();
 	void setName(QString name);
 	void setScore(float score);
-	void setDifficulty(int Diff);
+	void setDifficulty(int difficulty);
 	void print();
 };

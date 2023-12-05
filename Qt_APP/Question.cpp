@@ -47,3 +47,15 @@ void Question::printQuestions() {
         qDebug() << Answers_index[i];
     }
 }
+
+QString Question::getQuestion(int index) {
+	return Questions[index];
+}
+
+QString Question::getAnswer(int index, int ans) {
+	return Answers[index][ans];
+}
+
+int Question::getAnswer_index(int index) {
+	return Answers_index[index];
+}

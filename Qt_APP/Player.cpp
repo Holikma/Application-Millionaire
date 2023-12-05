@@ -15,8 +15,8 @@ void Player::setScore(float score) {
 	this->score = score;
 }
 
-void Player::setDifficulty(int diff) {
-	difficulty = diff;
+void Player::setDifficulty(int difficulty) {
+	this->difficulty = difficulty;
 }
 
 

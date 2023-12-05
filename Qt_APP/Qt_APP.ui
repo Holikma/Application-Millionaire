@@ -245,7 +245,7 @@
        <x>10</x>
        <y>20</y>
        <width>601</width>
-       <height>31</height>
+       <height>41</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="Grid_Layout">
@@ -277,6 +277,51 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="5">
+       <widget class="QComboBox" name="Level_Box">
+        <item>
+         <property name="text">
+          <string>Easy</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Medium</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Hard</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="8">
+       <widget class="QPushButton" name="End_Game_Button">
+        <property name="minimumSize">
+         <size>
+          <width>70</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>70</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>End Game</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QCheckBox" name="Random_Box">
+        <property name="text">
+         <string>Random</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="4" alignment="Qt::AlignLeft">
        <widget class="QLabel" name="label_3">
         <property name="maximumSize">
@@ -287,6 +332,22 @@
         </property>
         <property name="text">
          <string>Level:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="Name_Line">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>16777215</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -312,25 +373,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="8">
-       <widget class="QPushButton" name="End_Game_Button">
-        <property name="minimumSize">
-         <size>
-          <width>70</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>70</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>End Game</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="2">
        <widget class="QLabel" name="label_2">
         <property name="minimumSize">
@@ -350,44 +392,11 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
-       <widget class="QCheckBox" name="Random_Box">
-        <property name="text">
-         <string>Random</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="3">
        <widget class="QLineEdit" name="Score_Line">
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>16777215</height>
-         </size>
+        <property name="enabled">
+         <bool>true</bool>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QComboBox" name="Level_Box">
-        <item>
-         <property name="text">
-          <string>Easy</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Medium</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Hard</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="Name_Line">
         <property name="minimumSize">
          <size>
           <width>80</width>
@@ -399,6 +408,9 @@
           <width>80</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -492,25 +504,9 @@
  <resources>
   <include location="Qt_APP.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>Name_Line</sender>
-   <signal>returnPressed()</signal>
-   <receiver>Qt_APPClass</receiver>
-   <slot>Name_Input()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>101</x>
-     <y>74</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>101</x>
-     <y>31</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>Name_Input()</slot>
+  <slot>Set_Game()</slot>
  </slots>
 </ui>

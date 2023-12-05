@@ -16,26 +16,37 @@ QString Qt_APP::Name_Input() {
     return text;
 }
 
-QString Qt_APP::Level_Input() {
+int Qt_APP::Level_Input() {
     QComboBox* Level_Box = findChild<QComboBox*>("Level_Box");
     QString text = Level_Box->currentText();
-    return text;
+    if (text == "Easy") {
+		return 1;
+	}
+	else if (text == "Medium") {
+		return 2;
+	}
+	else if (text == "Hard") {
+		return 3;
+	}
+	else {
+		return 0;
+	}
 }
 
 void Qt_APP::freeze() {
 	ui.New_Game_Button->setEnabled(false);
-    findChild<QLineEdit*>("Name_Line")->setReadOnly(true);
+    findChild<QLineEdit*>("Name_Line")->setEnabled(false);
     findChild<QComboBox*>("Level_Box")->setEnabled(false);
+    findChild<QCheckBox*>("Random_Box")->setEnabled(false);
 }
+
 
 void Qt_APP::Set_Game() {
     Player player1;
     Question question1;
     freeze();
     player1.setName(Name_Input());
-    player1.setLevel(Level_Input());
-    question1.loadQuestions();
-    
-    
+    player1.setDifficulty(Level_Input());
+    question1.loadQuestions();    
 }
 

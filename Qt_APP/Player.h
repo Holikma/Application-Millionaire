@@ -6,12 +6,12 @@ class Player {
 private:
 	QString name = "";
 	float score;
-	QString level = "";
+	int difficulty = 0;
 
 public:
 	Player();
 	void setName(QString name);
 	void setScore(float score);
-	void setLevel(QString level);
+	void setDifficulty(int Diff);
 	void print();
 };

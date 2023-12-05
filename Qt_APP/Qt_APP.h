@@ -14,7 +14,7 @@ class Qt_APP : public QMainWindow{
     Q_OBJECT
     private slots:
         QString Name_Input();
-        QString Level_Input();
+        int Level_Input();
         void freeze();
         void Set_Game();
 

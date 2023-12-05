@@ -11,9 +11,7 @@ Qt_APP::~Qt_APP(){
 }
 
 QString Qt_APP::Name_Input() {
-    QLineEdit* nameLineEdit = findChild<QLineEdit*>("Name_Line");
-    QString text = nameLineEdit->text();
-    return text;
+    return ui.Name_Line->text();
 }
 
 int Qt_APP::Level_Input() {

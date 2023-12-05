@@ -1,9 +1,10 @@
 #include "Player.h"
-#include <iostream>
+
 
 Player::Player() {
 	this->name = "";
 	this->score = 0;
+	this->level = 0;
 }
 
 void Player::setName(QString name) {
@@ -14,7 +15,11 @@ void Player::setScore(float score) {
 	this->score = score;
 }
 
+void Player::setLevel(QString level) {
+	this->level = level;
+}
+
 void Player::print() {
-	std::cout << "Name: " << this->name.toStdString() << std::endl;
-	std::cout << "Score: " << this->score << std::endl;
+	qDebug() << "Name: " << this->name << " Score: " << this->score;
+
 }

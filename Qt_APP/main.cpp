@@ -1,7 +1,4 @@
 #include "Qt_APP.h"
-#include "Question.h"
-#include "Player.h"
-
 #include <QtWidgets/QApplication>
 
 

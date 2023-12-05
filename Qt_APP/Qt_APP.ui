@@ -201,7 +201,7 @@
        <x>10</x>
        <y>27</y>
        <width>601</width>
-       <height>109</height>
+       <height>91</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -222,7 +222,20 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="Question_Field"/>
+       <widget class="QPlainTextEdit" name="Question_Field">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include "Qt_APP.h"
+#include <string>
 
 class Question {
 	private:

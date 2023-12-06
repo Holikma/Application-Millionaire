@@ -4,7 +4,8 @@
 Qt_APP::Qt_APP(QWidget *parent) : QMainWindow(parent){
     ui.setupUi(this);
     connect(ui.New_Game_Button, SIGNAL(clicked()), this, SLOT(Set_Game()));
-
+    connect(ui.End_Game_Button, SIGNAL(clicked()), this, SLOT(close()));
+    connect(ui.Next_Question_Button, SIGNAL(clicked()), this, SLOT(loop_questions()));
 }
 
 Qt_APP::~Qt_APP(){
@@ -27,7 +28,6 @@ int Qt_APP::Level_Input() {
 	else if (text == "Hard") {
         ui.Joker2_Button->setEnabled(false);
         ui.Joker3_Button->setEnabled(false);
- 
 		return 3;
 	}
 	else {
@@ -42,14 +42,26 @@ void Qt_APP::freeze() {
     ui.Random_Box->setEnabled(false);
 }
 
-void Qt_APP::Set_Game() {
-    Player player1;
-    Question question1;
-    player1.setName(Name_Input());
-    player1.setDifficulty(Level_Input());
-    question1.loadQuestions();
-    freeze();
-
+void Qt_APP::loop_questions() {
+    Question q;
+    q.loadQuestions();
+    current_index++;
+    ui.Question_Field->setReadOnly(true);
+	ui.Question_Field->setPlainText(q.getQuestion(current_index));
+    ui.A_option->setText(q.getAnswer(current_index, 0));
+    ui.B_option->setText(q.getAnswer(current_index, 1));
+    ui.C_option->setText(q.getAnswer(current_index, 2));
+    ui.D_option->setText(q.getAnswer(current_index, 3));
 
 }
+
+void Qt_APP::Set_Game() {
+    Player player1;
+    player1.setName(Name_Input());
+    player1.setDifficulty(Level_Input());
+    freeze();
+    loop_questions();
+}
+
+
 

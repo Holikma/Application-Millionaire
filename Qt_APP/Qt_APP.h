@@ -8,13 +8,17 @@
 #include <QDebug>
 #include "Player.h"
 #include "Question.h"
+#include <QMessageBox>
+#include <cstdlib>
+#include <ctime>
+
 
 class Player;
 class Question;
 
 class Qt_APP : public QMainWindow{
     Q_OBJECT
-     int current_index = -1;
+    int current_index = -1;
 
     private slots:
         void freeze();
@@ -22,12 +26,16 @@ class Qt_APP : public QMainWindow{
         QString Name_Input();
         void Set_Game();        
         void loop_questions();
+        void submit_answer();
 
     private:
+
         Ui::Qt_APPClass ui;
 
        
     public:
+        void randomize_order(int* order);
+        void check_answers(Question q);
         Qt_APP(QWidget *parent = nullptr);
         ~Qt_APP();
 };

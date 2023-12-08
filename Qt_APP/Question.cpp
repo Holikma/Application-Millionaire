@@ -4,9 +4,7 @@
 
 using namespace std;
 
-Question::Question() {};
-
-void Question::loadQuestions() {
+Question::Question() {
     QString line = "";
     QFile file("questions.txt");
 
@@ -59,3 +57,5 @@ QString Question::getAnswer(int index, int ans) {
 int Question::getAnswer_index(int index) {
 	return Answers_index[index];
 }
+
+

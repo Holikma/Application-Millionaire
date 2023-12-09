@@ -1,6 +1,11 @@
 #include "Question.h"
 #include <iostream>
 #include <fstream>
+#include <QString>
+#include <QFile>
+#include <QTextStream>
+#include <QStringList>
+#include <QDebug>
 
 using namespace std;
 

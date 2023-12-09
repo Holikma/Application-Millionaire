@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Qt_APP.h"
+#include <QString>
 
 class Player {
 private:

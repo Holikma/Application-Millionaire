@@ -1,6 +1,5 @@
 #include "Qt_APP.h"
 
-
 Qt_APP::Qt_APP(QWidget *parent) : QMainWindow(parent){
     ui.setupUi(this);
     ui.Score_Field->setText("0");
@@ -86,7 +85,6 @@ void Qt_APP::submit_answer() {
 }
 
 void Qt_APP::loop_questions() {
-    Question q;
     current_index++;
     if (current_index > 9) {
         QMessageBox::information(this, "Game Over", "Your score is: " + ui.Score_Field->text());
@@ -113,18 +111,27 @@ void Qt_APP::randomize_order(int* order) {
 }
 
 void Qt_APP::Set_Game() {
-    Player player1;
     player1.setName(Name_Input());
     player1.setDifficulty(Level_Input());
 
     freeze();
     if (ui.Random_Box->isChecked()) {
-		int order[10] = { 0,1,2,3,4,5,6,7,8,9 };
-		randomize_order(order);
-	}
-
-    loop_questions();
+        int order[10] = { 0,1,2,3,4,5,6,7,8,9 };
+        randomize_order(order);
+        for (int i = 0; i < 10; i++) {
+            ui.Question_Field->setPlainText(q.getQuestion(order[i]));
+            ui.A_option->setText(q.getAnswer(order[i], 0));
+            ui.B_option->setText(q.getAnswer(order[i], 1));
+            ui.C_option->setText(q.getAnswer(order[i], 2));
+            ui.D_option->setText(q.getAnswer(order[i], 3));
+            check_answers(q);
+            submit_answer();
+            loop_questions();
+        }
+        loop_questions();
+    }
 }
+
 
 
 

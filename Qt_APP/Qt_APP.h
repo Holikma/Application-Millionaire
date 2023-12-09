@@ -13,9 +13,6 @@
 #include <ctime>
 
 
-class Player;
-class Question;
-
 class Qt_APP : public QMainWindow{
     Q_OBJECT
     int current_index = -1;
@@ -29,7 +26,8 @@ class Qt_APP : public QMainWindow{
         void submit_answer();
 
     private:
-
+        Player player1;
+        Question q;
         Ui::Qt_APPClass ui;
 
        

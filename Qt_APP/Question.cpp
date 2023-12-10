@@ -74,3 +74,7 @@ void Question::increment() {
     order_index++;
 }
 
+void Question::set_order_index(int index) {
+	order_index = index;
+}
+

@@ -14,9 +14,13 @@
 class Qt_APP : public QMainWindow{
     Q_OBJECT
     private slots:
-        QString Name_Input();
         void Set_Game();        
         void loop_questions();
+        void skip();
+        void Joker1();
+        void Joker2();
+        void Joker3();
+        void reset();
 
     private:
         Player player;
@@ -25,9 +29,11 @@ class Qt_APP : public QMainWindow{
 
        
     public:
+        QString Name_Input();
         int Level_Input();
         void lock_in_input();
         void check_answers(int index);
+        void enable_options();
         Qt_APP(QWidget *parent = nullptr);
         ~Qt_APP();
 };

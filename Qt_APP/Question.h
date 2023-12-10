@@ -23,6 +23,7 @@ class Question {
 		void normal_order();
 		void increment();
 		void printQuestion(int index);
+		void set_order_index(int index);
 		int get_order_index();
 		int getAnswer_index(int index);
 		QString getQuestion(int index);

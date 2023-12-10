@@ -14,11 +14,18 @@ Qt_APP::Qt_APP(QWidget *parent) : QMainWindow(parent){
     ui.B_option->setAutoExclusive(false);
     ui.C_option->setAutoExclusive(false);
     ui.D_option->setAutoExclusive(false);
+    ui.Joker1_Button->setEnabled(false);
+    ui.Joker2_Button->setEnabled(false);
+    ui.Joker3_Button->setEnabled(false);
 
     connect(ui.New_Game_Button, SIGNAL(clicked()), this, SLOT(Set_Game()));
-    connect(ui.End_Game_Button, SIGNAL(clicked()), this, SLOT(close()));
     connect(ui.Submit_Button, SIGNAL(clicked()), this, SLOT(loop_questions()));
-
+    connect(ui.Next_Question_Button, SIGNAL(clicked()), this, SLOT(skip()));
+    connect(ui.Joker1_Button, SIGNAL(clicked()), this, SLOT(Joker1()));
+    connect(ui.Joker2_Button, SIGNAL(clicked()), this, SLOT(Joker2()));
+    connect(ui.Joker3_Button, SIGNAL(clicked()), this, SLOT(Joker3()));
+    connect(ui.End_Game_Button, SIGNAL(clicked()), this, SLOT(reset()));
+    
 }
 
 Qt_APP::~Qt_APP(){
@@ -31,13 +38,19 @@ QString Qt_APP::Name_Input() {
 int Qt_APP::Level_Input() {
     QString text = ui.Level_Box->currentText();
     if (text == "Easy") {
+        ui.Joker1_Button->setEnabled(true);
+		ui.Joker2_Button->setEnabled(true);
+		ui.Joker3_Button->setEnabled(true);
 		return 1;
 	}
 	else if (text == "Medium") {
+        ui.Joker1_Button->setEnabled(true);
+        ui.Joker2_Button->setEnabled(true);
         ui.Joker3_Button->setEnabled(false);
 		return 2;
 	}
 	else if (text == "Hard") {
+        ui.Joker1_Button->setEnabled(true);
         ui.Joker2_Button->setEnabled(false);
         ui.Joker3_Button->setEnabled(false);
 		return 3;
@@ -53,11 +66,8 @@ void Qt_APP::lock_in_input() {
     ui.Random_Box->setEnabled(false);
     ui.Submit_Button->setEnabled(true);
     ui.Next_Question_Button->setEnabled(true);
-    ui.A_option->setEnabled(true);
-    ui.B_option->setEnabled(true);
-    ui.C_option->setEnabled(true);
-    ui.D_option->setEnabled(true);
-
+    ui.New_Game_Button->setEnabled(false);
+    enable_options();
 }
 
 void Qt_APP::check_answers(int index) {
@@ -75,10 +85,10 @@ void Qt_APP::check_answers(int index) {
 	}
     else if (ui.C_option->isChecked()) {
         if (q.getAnswer_index(index) == 2) {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
-		}
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
+        }
         ui.C_option->setChecked(false);
-	}
+    }
     else if (ui.D_option->isChecked()) {
         if (q.getAnswer_index(index) == 3) {
             ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
@@ -89,6 +99,7 @@ void Qt_APP::check_answers(int index) {
 
 void Qt_APP::loop_questions() {
     check_answers(q.get_order_index());
+    enable_options();
     q.increment();
     if (q.get_order_index() > 9) {
         QMessageBox::information(this, "Game Over", "Your score is: " + ui.Score_Field->text());
@@ -100,25 +111,154 @@ void Qt_APP::loop_questions() {
         ui.A_option->setText(q.getAnswer(q.get_order_index(), 0));
         ui.B_option->setText(q.getAnswer(q.get_order_index(), 1));
         ui.C_option->setText(q.getAnswer(q.get_order_index(), 2));
-        ui.D_option->setText(q.getAnswer(q.get_order_index(), 3));    
+        ui.D_option->setText(q.getAnswer(q.get_order_index(), 3));
     }
 }
-
 
 void Qt_APP::Set_Game() {
     player.setName(Name_Input());
     player.setDifficulty(Level_Input());
     lock_in_input();
-
-    if (ui.Random_Box->isChecked()){
+    if (ui.Random_Box->isChecked()) {
         q.randomize_order();
     }
     else {
-		q.normal_order();
-	}
- 
+        q.normal_order();
+    }
     loop_questions();
 }
+
+void Qt_APP::skip() {
+    q.increment();
+    if (q.get_order_index() > 9) {
+        QMessageBox::information(this, "Game Over", "Your score is: " + ui.Score_Field->text());
+    }
+    else {
+        ui.Submit_Button->setEnabled(true);
+        ui.Next_Question_Button->setEnabled(true);
+        ui.Question_Field->setPlainText(q.getQuestion(q.get_order_index()));
+        ui.A_option->setText(q.getAnswer(q.get_order_index(), 0));
+        ui.B_option->setText(q.getAnswer(q.get_order_index(), 1));
+        ui.C_option->setText(q.getAnswer(q.get_order_index(), 2));
+        ui.D_option->setText(q.getAnswer(q.get_order_index(), 3));
+    }
+}
+
+void Qt_APP::Joker1() {
+    ui.Joker1_Button->setEnabled(false);
+    if (q.getAnswer_index(q.get_order_index()) == 0) {
+        ui.A_option->setEnabled(true);// answer is A
+        ui.B_option->setEnabled(true);
+        ui.C_option->setEnabled(false);
+        ui.D_option->setEnabled(false);
+    }
+    else if (q.getAnswer_index(q.get_order_index()) == 1) {
+        ui.A_option->setEnabled(false);
+        ui.B_option->setEnabled(true);// answer is B
+        ui.C_option->setEnabled(true);
+        ui.D_option->setEnabled(false);
+    }
+    else if (q.getAnswer_index(q.get_order_index()) == 2) {
+        ui.A_option->setEnabled(false);
+        ui.B_option->setEnabled(false);
+        ui.C_option->setEnabled(true);// answer is C
+        ui.D_option->setEnabled(true);
+    }
+    else if (q.getAnswer_index(q.get_order_index()) == 3) {
+        ui.A_option->setEnabled(true);
+        ui.B_option->setEnabled(false);
+        ui.C_option->setEnabled(false);
+        ui.D_option->setEnabled(true);// answer is D
+    }
+}
+
+void Qt_APP::Joker2() {
+    ui.Joker2_Button->setEnabled(false);
+    if (q.getAnswer_index(q.get_order_index()) == 0) {
+        ui.A_option->setEnabled(true); // answer is A
+        ui.B_option->setEnabled(false);
+        ui.C_option->setEnabled(true);
+        ui.D_option->setEnabled(false);
+    }
+    else if (q.getAnswer_index(q.get_order_index()) == 1) {
+        ui.A_option->setEnabled(false);
+        ui.B_option->setEnabled(true); // answer is B
+        ui.C_option->setEnabled(false);
+        ui.D_option->setEnabled(true);
+    }
+    else if (q.getAnswer_index(q.get_order_index()) == 2) {
+        ui.A_option->setEnabled(true);
+        ui.B_option->setEnabled(false);
+        ui.C_option->setEnabled(true); // answer is C
+        ui.D_option->setEnabled(false);
+    }
+    else if (q.getAnswer_index(q.get_order_index()) == 3) {
+        ui.A_option->setEnabled(false);
+        ui.B_option->setEnabled(true);
+        ui.C_option->setEnabled(false);
+        ui.D_option->setEnabled(true); // answer is D
+    }
+}
+
+void Qt_APP::Joker3() {
+    ui.Joker3_Button->setEnabled(false);
+    if (q.getAnswer_index(q.get_order_index()) == 0) {
+        ui.A_option->setEnabled(true); // answer is A
+		ui.B_option->setEnabled(false);
+		ui.C_option->setEnabled(false);
+        ui.D_option->setEnabled(true);
+	}
+    else if (q.getAnswer_index(q.get_order_index()) == 1) {
+		ui.A_option->setEnabled(true);
+        ui.B_option->setEnabled(true); // answer is B
+		ui.C_option->setEnabled(false);
+        ui.D_option->setEnabled(false);
+	}
+    else if (q.getAnswer_index(q.get_order_index()) == 2) {
+		ui.A_option->setEnabled(false);
+    	ui.B_option->setEnabled(true);
+		ui.C_option->setEnabled(true); // answer is C
+		ui.D_option->setEnabled(false);
+	}
+    else if (q.getAnswer_index(q.get_order_index()) == 3) {
+		ui.A_option->setEnabled(false);
+		ui.B_option->setEnabled(false);
+        ui.C_option->setEnabled(true);
+        ui.D_option->setEnabled(true); // answer is D
+	}
+}
+void Qt_APP::enable_options() {
+	ui.A_option->setEnabled(true);
+	ui.B_option->setEnabled(true);
+	ui.C_option->setEnabled(true);
+	ui.D_option->setEnabled(true);
+}
+
+void Qt_APP::reset() {
+    ui.New_Game_Button->setEnabled(true);
+    ui.Name_Line->setEnabled(true);
+	ui.Name_Line->setText("");
+    q.normal_order();
+    q.set_order_index(-1);
+	ui.Score_Field->setText("0");
+	ui.Level_Box->setEnabled(true);
+	ui.Random_Box->setEnabled(true);
+	ui.Submit_Button->setEnabled(false);
+	ui.Next_Question_Button->setEnabled(false);
+	ui.A_option->setEnabled(false);
+	ui.B_option->setEnabled(false);
+	ui.C_option->setEnabled(false);
+	ui.D_option->setEnabled(false);
+	ui.Question_Field->setPlainText("");
+	ui.A_option->setText("A)");
+	ui.B_option->setText("B)");
+	ui.C_option->setText("C)");
+	ui.D_option->setText("D)");
+	ui.Joker1_Button->setEnabled(false);
+	ui.Joker2_Button->setEnabled(false);
+	ui.Joker3_Button->setEnabled(false);
+}
+
 
 
 

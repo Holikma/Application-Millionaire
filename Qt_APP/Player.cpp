@@ -13,8 +13,3 @@ void Player::setName(QString name) {
 void Player::setDifficulty(int difficulty) {
 	this->difficulty = difficulty;
 }
-
-void Player::print() {
-	qDebug() << "Name: " << this->name;
-
-}

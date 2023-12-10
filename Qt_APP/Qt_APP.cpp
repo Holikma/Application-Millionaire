@@ -272,7 +272,7 @@ void Qt_APP::enable_options() {
 }
 
 void Qt_APP::reset() {
-    QMessageBox::information(this, "Game Over", "Your score is: " + QString::number(ui.Score_Field->text().toFloat() - 0.5 * (9 - q.get_order_index())));
+    QMessageBox::information(this, "Game Over", "Your score is: " + QString::number(ui.Score_Field->text().toFloat() - 0.5 * (10 - q.get_order_index())));
     ui.New_Game_Button->setEnabled(true);
     ui.Name_Line->setEnabled(true);
 	ui.Name_Line->setText("");

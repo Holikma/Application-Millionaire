@@ -10,10 +10,6 @@ Qt_APP::Qt_APP(QWidget *parent) : QMainWindow(parent){
     ui.C_option->setEnabled(false);
     ui.D_option->setEnabled(false);
     ui.Question_Field->setReadOnly(true);
-    ui.A_option->setAutoExclusive(false);
-    ui.B_option->setAutoExclusive(false);
-    ui.C_option->setAutoExclusive(false);
-    ui.D_option->setAutoExclusive(false);
     ui.Joker1_Button->setEnabled(false);
     ui.Joker2_Button->setEnabled(false);
     ui.Joker3_Button->setEnabled(false);
@@ -76,14 +72,26 @@ void Qt_APP::check_answers(int index) {
 			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
             QMessageBox::information(this, "Correct Answer", "You got it right!");
 		}
+        else {
+			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
+            QMessageBox::information(this, "Wrong Answer", "You got it wrong!");
+		}
+        ui.A_option->setAutoExclusive(false);
         ui.A_option->setChecked(false);
+        ui.A_option->setAutoExclusive(true);
 	}
     else if (ui.B_option->isChecked()) {
         if (q.getAnswer_index(index) == 1) {
 			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
             QMessageBox::information(this, "Correct Answer", "You got it right!");
 		}
+        else {
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
+            QMessageBox::information(this, "Wrong Answer", "You got it wrong!");
+        }
+        ui.B_option->setAutoExclusive(false);
         ui.B_option->setChecked(false);
+        ui.B_option->setAutoExclusive(true);
 	}
     else if (ui.C_option->isChecked()) {
         if (q.getAnswer_index(index) == 2) {
@@ -91,20 +99,27 @@ void Qt_APP::check_answers(int index) {
             QMessageBox::information(this, "Correct Answer", "You got it right!");
 
         }
+        else {
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
+            QMessageBox::information(this, "Wrong Answer", "You got it wrong!");
+        }
+        ui.C_option->setAutoExclusive(false);
         ui.C_option->setChecked(false);
+        ui.C_option->setAutoExclusive(true);
     }
     else if (ui.D_option->isChecked()) {
         if (q.getAnswer_index(index) == 3) {
             ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
             QMessageBox::information(this, "Correct Answer", "You got it right!");
         }
+        else {
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
+            QMessageBox::information(this, "Wrong Answer", "You got it wrong!");
+        }
+        ui.D_option->setAutoExclusive(false);
         ui.D_option->setChecked(false);
+        ui.D_option->setAutoExclusive(true);
     }
-    //else {
-    //    ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
-    //}
-    //    problém s prvým sputením hry, keïže kontrolujem odpovede ako prvú vec v loope, tak vyhodí zlú odpoveï 
-
 }
 
 void Qt_APP::loop_questions() {

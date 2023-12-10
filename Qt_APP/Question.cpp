@@ -1,13 +1,4 @@
 #include "Question.h"
-#include <iostream>
-#include <fstream>
-#include <QString>
-#include <QFile>
-#include <QTextStream>
-#include <QStringList>
-#include <QDebug>
-
-using namespace std;
 
 Question::Question() {
     QString line = "";
@@ -33,34 +24,53 @@ Question::Question() {
                 Answers[i][j] = ans[j];
             }
         }
-
         file.close();
     }
     else {
         qDebug() << "Unable to open file";
     }
+
+    for (int i = 0; i < 10; i++) {
+		question_order[i] = i;
+	}
 }
 
-void Question::printQuestions() {
-    for (int i = 0; i < 10; i++) {
-        qDebug() << Questions[i];
-        for (int j = 0; j < 4; j++) {
-            qDebug() << Answers[i][j] << " ";
-        }
-        qDebug() << Answers_index[i];
-    }
+void Question::printQuestion(int index) {
+    qDebug() << "Question: " << question_order[index];
+    qDebug() << "Answer: " << Answers[question_order[index]][Answers_index[question_order[index]]]  << "Answer index: " << Answers_index[question_order[index]];
+    
 }
 
 QString Question::getQuestion(int index) {
-	return Questions[index];
+	return Questions[question_order[index]];
 }
 
 QString Question::getAnswer(int index, int ans) {
-	return Answers[index][ans];
+	return Answers[question_order[index]][ans];
 }
 
 int Question::getAnswer_index(int index) {
-	return Answers_index[index];
+	return Answers_index[question_order[index]];
 }
 
+int Question::get_order_index() {
+	return order_index;
+}
+
+void Question::randomize_order() {
+    srand(time(NULL));
+    for (int i = 0; i < 10; i++) {
+		std::swap(question_order[i], question_order[rand() % 10]);
+	}
+}
+
+void Question::normal_order() {
+    for (int i = 0; i < 10; i++) {
+		question_order[i] = i;
+	}
+}
+
+void Question::increment() {
+    order_index++;
+}
 

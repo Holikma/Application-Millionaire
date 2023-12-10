@@ -9,31 +9,25 @@
 #include "Player.h"
 #include "Question.h"
 #include <QMessageBox>
-#include <cstdlib>
-#include <ctime>
 
 
 class Qt_APP : public QMainWindow{
     Q_OBJECT
-    int current_index = -1;
-
     private slots:
-        void freeze();
-        int Level_Input();
         QString Name_Input();
         void Set_Game();        
         void loop_questions();
-        void submit_answer();
 
     private:
-        Player player1;
+        Player player;
         Question q;
         Ui::Qt_APPClass ui;
 
        
     public:
-        void randomize_order(int* order);
-        void check_answers(Question q);
+        int Level_Input();
+        void lock_in_input();
+        void check_answers(int index);
         Qt_APP(QWidget *parent = nullptr);
         ~Qt_APP();
 };

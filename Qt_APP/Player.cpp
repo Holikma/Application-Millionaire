@@ -1,5 +1,5 @@
 #include "Player.h"
-#include <QDebug>
+
 
 Player::Player() {
 	this->name = "";

@@ -10,6 +10,10 @@ Qt_APP::Qt_APP(QWidget *parent) : QMainWindow(parent){
     ui.C_option->setEnabled(false);
     ui.D_option->setEnabled(false);
     ui.Question_Field->setReadOnly(true);
+    ui.A_option->setAutoExclusive(false);
+    ui.B_option->setAutoExclusive(false);
+    ui.C_option->setAutoExclusive(false);
+    ui.D_option->setAutoExclusive(false);
 
     connect(ui.New_Game_Button, SIGNAL(clicked()), this, SLOT(Set_Game()));
     connect(ui.End_Game_Button, SIGNAL(clicked()), this, SLOT(close()));
@@ -59,31 +63,28 @@ void Qt_APP::lock_in_input() {
 void Qt_APP::check_answers(int index) {
     if (ui.A_option->isChecked()) {
         if (q.getAnswer_index(index) == 0) {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toInt() + 1));
+			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
 		}
+        ui.A_option->setChecked(false);
 	}
     else if (ui.B_option->isChecked()) {
         if (q.getAnswer_index(index) == 1) {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toInt() + 1));
- 
+			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
 		}
+        ui.B_option->setChecked(false);
 	}
     else if (ui.C_option->isChecked()) {
         if (q.getAnswer_index(index) == 2) {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toInt() + 1));
-
+			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
 		}
+        ui.C_option->setChecked(false);
 	}
     else if (ui.D_option->isChecked()) {
         if (q.getAnswer_index(index) == 3) {
-            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toInt() + 1));
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
         }
+        ui.D_option->setChecked(false);
     }
-    ui.A_option->setChecked(false);
-    ui.B_option->setChecked(false);
-    ui.C_option->setChecked(false);
-    ui.D_option->setChecked(false);
-
 }
 
 void Qt_APP::loop_questions() {
@@ -109,7 +110,7 @@ void Qt_APP::Set_Game() {
     player.setDifficulty(Level_Input());
     lock_in_input();
 
-    if (ui.Random_Box->isChecked()) {
+    if (ui.Random_Box->isChecked()){
         q.randomize_order();
     }
     else {

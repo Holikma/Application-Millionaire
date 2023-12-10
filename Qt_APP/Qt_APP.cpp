@@ -73,28 +73,38 @@ void Qt_APP::lock_in_input() {
 void Qt_APP::check_answers(int index) {
     if (ui.A_option->isChecked()) {
         if (q.getAnswer_index(index) == 0) {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
+			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
+            QMessageBox::information(this, "Correct Answer", "You got it right!");
 		}
         ui.A_option->setChecked(false);
 	}
     else if (ui.B_option->isChecked()) {
         if (q.getAnswer_index(index) == 1) {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
+			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
+            QMessageBox::information(this, "Correct Answer", "You got it right!");
 		}
         ui.B_option->setChecked(false);
 	}
     else if (ui.C_option->isChecked()) {
         if (q.getAnswer_index(index) == 2) {
-            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
+            QMessageBox::information(this, "Correct Answer", "You got it right!");
+
         }
         ui.C_option->setChecked(false);
     }
     else if (ui.D_option->isChecked()) {
         if (q.getAnswer_index(index) == 3) {
-            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 0.5));
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
+            QMessageBox::information(this, "Correct Answer", "You got it right!");
         }
         ui.D_option->setChecked(false);
     }
+    //else {
+    //    ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
+    //}
+    //    problém s prvým sputením hry, keïže kontrolujem odpovede ako prvú vec v loope, tak vyhodí zlú odpoveï 
+
 }
 
 void Qt_APP::loop_questions() {
@@ -103,6 +113,11 @@ void Qt_APP::loop_questions() {
     q.increment();
     if (q.get_order_index() > 9) {
         QMessageBox::information(this, "Game Over", "Your score is: " + ui.Score_Field->text());
+        ui.Next_Question_Button->setEnabled(false);
+        ui.Submit_Button->setEnabled(false);
+        ui.Joker1_Button->setEnabled(false);
+        ui.Joker2_Button->setEnabled(false);
+        ui.Joker3_Button->setEnabled(false);
     }
     else {
         ui.Submit_Button->setEnabled(true);
@@ -113,6 +128,7 @@ void Qt_APP::loop_questions() {
         ui.C_option->setText(q.getAnswer(q.get_order_index(), 2));
         ui.D_option->setText(q.getAnswer(q.get_order_index(), 3));
     }
+    
 }
 
 void Qt_APP::Set_Game() {
@@ -132,6 +148,11 @@ void Qt_APP::skip() {
     q.increment();
     if (q.get_order_index() > 9) {
         QMessageBox::information(this, "Game Over", "Your score is: " + ui.Score_Field->text());
+        ui.Next_Question_Button->setEnabled(false);
+        ui.Submit_Button->setEnabled(false);
+        ui.Joker1_Button->setEnabled(false);
+        ui.Joker2_Button->setEnabled(false);
+        ui.Joker3_Button->setEnabled(false);
     }
     else {
         ui.Submit_Button->setEnabled(true);
@@ -142,6 +163,7 @@ void Qt_APP::skip() {
         ui.C_option->setText(q.getAnswer(q.get_order_index(), 2));
         ui.D_option->setText(q.getAnswer(q.get_order_index(), 3));
     }
+    ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 0.5));
 }
 
 void Qt_APP::Joker1() {
@@ -235,6 +257,7 @@ void Qt_APP::enable_options() {
 }
 
 void Qt_APP::reset() {
+    QMessageBox::information(this, "Game Over", "Your score is: " + QString::number(ui.Score_Field->text().toFloat() - 0.5 * (9 - q.get_order_index())));
     ui.New_Game_Button->setEnabled(true);
     ui.Name_Line->setEnabled(true);
 	ui.Name_Line->setText("");

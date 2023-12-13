@@ -22,6 +22,7 @@ class Question {
 		void randomize_order();
 		void normal_order();
 		void increment();
+		void decrement();
 		void printQuestion(int index);
 		void set_order_index(int index);
 		int get_order_index();

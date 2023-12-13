@@ -13,15 +13,13 @@ Qt_APP::Qt_APP(QWidget *parent) : QMainWindow(parent){
     ui.Joker1_Button->setEnabled(false);
     ui.Joker2_Button->setEnabled(false);
     ui.Joker3_Button->setEnabled(false);
-
     connect(ui.New_Game_Button, SIGNAL(clicked()), this, SLOT(Set_Game()));
     connect(ui.Submit_Button, SIGNAL(clicked()), this, SLOT(loop_questions()));
     connect(ui.Next_Question_Button, SIGNAL(clicked()), this, SLOT(skip()));
     connect(ui.Joker1_Button, SIGNAL(clicked()), this, SLOT(Joker1()));
     connect(ui.Joker2_Button, SIGNAL(clicked()), this, SLOT(Joker2()));
     connect(ui.Joker3_Button, SIGNAL(clicked()), this, SLOT(Joker3()));
-    connect(ui.End_Game_Button, SIGNAL(clicked()), this, SLOT(reset()));
-    
+    connect(ui.End_Game_Button, SIGNAL(clicked()), this, SLOT(reset()));  
 }
 
 Qt_APP::~Qt_APP(){
@@ -69,22 +67,22 @@ void Qt_APP::lock_in_input() {
 void Qt_APP::check_answers(int index) {
     if (ui.A_option->isChecked()) {
         if (q.getAnswer_index(index) == 0) {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
             QMessageBox::information(this, "Correct Answer", "You got it right!");
-		}
+        }
         else {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
             QMessageBox::information(this, "Wrong Answer", "You got it wrong!");
-		}
+        }
         ui.A_option->setAutoExclusive(false);
         ui.A_option->setChecked(false);
         ui.A_option->setAutoExclusive(true);
-	}
+    }
     else if (ui.B_option->isChecked()) {
         if (q.getAnswer_index(index) == 1) {
-			ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
+            ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
             QMessageBox::information(this, "Correct Answer", "You got it right!");
-		}
+        }
         else {
             ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
             QMessageBox::information(this, "Wrong Answer", "You got it wrong!");
@@ -92,12 +90,11 @@ void Qt_APP::check_answers(int index) {
         ui.B_option->setAutoExclusive(false);
         ui.B_option->setChecked(false);
         ui.B_option->setAutoExclusive(true);
-	}
+    }
     else if (ui.C_option->isChecked()) {
         if (q.getAnswer_index(index) == 2) {
             ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() + 1));
             QMessageBox::information(this, "Correct Answer", "You got it right!");
-
         }
         else {
             ui.Score_Field->setText(QString::number(ui.Score_Field->text().toFloat() - 1));
@@ -119,6 +116,10 @@ void Qt_APP::check_answers(int index) {
         ui.D_option->setAutoExclusive(false);
         ui.D_option->setChecked(false);
         ui.D_option->setAutoExclusive(true);
+    }
+    else if (!ui.A_option->isChecked() && !ui.B_option->isChecked() && !ui.C_option->isChecked() && !ui.D_option->isChecked() && q.get_order_index() != -1) {
+        QMessageBox::information(this, "No Answer", "You didn't select an answer!");
+        q.decrement();
     }
 }
 
@@ -142,8 +143,7 @@ void Qt_APP::loop_questions() {
         ui.B_option->setText(q.getAnswer(q.get_order_index(), 1));
         ui.C_option->setText(q.getAnswer(q.get_order_index(), 2));
         ui.D_option->setText(q.getAnswer(q.get_order_index(), 3));
-    }
-    
+    } 
 }
 
 void Qt_APP::Set_Game() {
@@ -264,6 +264,7 @@ void Qt_APP::Joker3() {
         ui.D_option->setEnabled(true); // answer is D
 	}
 }
+
 void Qt_APP::enable_options() {
 	ui.A_option->setEnabled(true);
 	ui.B_option->setEnabled(true);

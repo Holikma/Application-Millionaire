@@ -78,3 +78,6 @@ void Question::set_order_index(int index) {
 	order_index = index;
 }
 
+void Question::decrement() {
+	order_index--;
+}
